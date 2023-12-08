@@ -1,5 +1,7 @@
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Candidatos extends Ciudadano {
@@ -23,6 +25,35 @@ public class Candidatos extends Ciudadano {
         this.partido_politico = partido_politico;
         this.numero_votos = numero_votos;
 
+    }
+    public static List<Candidatos> generarListaCandidatos() {
+        List<Candidatos> candidatos = new ArrayList<>();
+
+        // Datos ficticios para generar candidatos
+        String[] nombres = {"Juan", "Maria", "Pedro", "Ana", "Carlos", "Laura", "Diego", "Elena", "Luis", "Sofia", "Roberto", "Isabel", "Fernando", "Carmen", "Pablo", "Rosa", "Javier", "Silvia", "Miguel", "Adriana"};
+        String[] cedulas = {"1234567890", "2345678901", "3456789012", "4567890123", "5678901234", "6789012345", "7890123456", "8901234567", "9012345678", "0123456789", "1122334455", "2233445566", "3344556677", "4455667788", "5566778899", "6677889900", "7788990011", "8899001122", "9900112233", "0011223344"};
+        String[] ciudades = {"Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena", "Manizales", "Pereira", "Cúcuta", "Bucaramanga", "Villavicencio", "Pasto", "Ibagué", "Neiva", "Popayán", "Montería", "Santa Marta", "Valledupar", "Armenia", "Riohacha", "Quibdó"};
+        boolean[] orientaciones = {true, false};
+        String[] partidos = {"Partido A", "Partido B", "Partido C", "Partido D", "Partido E"};
+        String[] listasPromesas = {"Promesa 1", "Promesa 2", "Promesa 3", "Promesa 4", "Promesa 5"};
+
+        Random random = new Random();
+
+        // Generar 20 candidatos con datos aleatorios
+        for (int i = 0; i < 20; i++) {
+            Candidatos candidato = new Candidatos(
+                    nombres[random.nextInt(nombres.length)],
+                    cedulas[random.nextInt(cedulas.length)],
+                    ciudades[random.nextInt(ciudades.length)],
+                    orientaciones[random.nextInt(orientaciones.length)],
+                    partidos[random.nextInt(partidos.length)],
+                    listasPromesas[random.nextInt(listasPromesas.length)],
+                    random.nextInt(1000) // Número de votos aleatorio
+            );
+            candidatos.add(candidato);
+        }
+
+        return candidatos;
     }
 
     public boolean getOrientacion_politica() {
@@ -265,5 +296,11 @@ public class Candidatos extends Ciudadano {
 
         return candidatosEncontrados; // Devuelve la lista de candidatos encontrados.
     }
-
+    public static Candidatos buscarCandidatosPorCedula(List<Candidatos> candidatos, String cedulaabuscar) {
+        for (Candidatos candidato : candidatos) {
+            if (candidato.getCedula().equalsIgnoreCase(cedulaabuscar)) {
+                return candidato;
+            }
+        }return null;
+    }
 }
